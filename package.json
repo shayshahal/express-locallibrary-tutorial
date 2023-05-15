@@ -6,7 +6,7 @@
     "node": ">=18.16.0"
   },
   "scripts": {
-    "start": "node-dev ./bin/www",
+    "start": "node ./bin/www",
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
