@@ -1,0 +1,84 @@
+<h1><%=title%></h1>
+<form
+	action=""
+	method="POST"
+>
+	<div class="form-group">
+		<label for="title"> Book: </label>
+		<select
+			name="book"
+			placeholder="Select book"
+			id="book"
+			class="form-control"
+		>
+            <%=console.log(locals)%>
+			<%book_list.sort(function(a, b) {let textA = a.title.toUpperCase();
+			let textB = b.title.toUpperCase(); return (textA < textB) ? -1 :
+			(textA > textB) ? 1 : 0;});%> <% book_list.forEach(book => { %> 
+			<option 
+            value="<%=book._id%>" 
+            <%=(locals.selected_book==book._id.toString()?'selected':'')%> 
+            >
+			        <%=book.title%>
+            </option> 
+            <% }) %>
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="imprint"> Imprint: </label>
+		<input
+			type="text"
+			name="imprint"
+			value="<%=(undefined===locals.bookinstance?'':bookinstance.imprint)%>"
+			placeholder="Publisher and date information"
+			id="imprint"
+			class="form-control"
+		/>
+	</div>
+	<div class="form-group">
+		<label for="due_back">Date when book available: </label>
+        <input type="date" name="due_back" value=<%=(undefined===locals.bookinstance?'':bookinstance.due_back_yyyy_mm_dd)%> id="due_back" class="form-control">
+	</div>
+	<div class="form-group">
+		<label for="status">Status:</label>
+        <select placeholder="Select status" name="status" id="status" class="form-control" type="select">
+                <option
+                    value="Maintenance"
+                    <%=(undefined===locals.bookinstance || bookinstance.status!=='Maintenance' ? '':'selected')%>
+                >
+                    Maintenance
+                </option>
+                <option
+                value="Available"
+                <%=(undefined===locals.bookinstance || bookinstance.status!=='=Available' ? '':'selected')%>
+            >
+                Available
+            </option>
+            <option
+            value="Loaned"
+            <%=(undefined===locals.bookinstance || bookinstance.status!=='Loaned' ? '':'selected')%>
+        >
+            Loaned
+        </option>
+        <option
+        value="Reserved"
+        <%=(undefined===locals.bookinstance || bookinstance.status!=='Reserved' ? '':'selected')%>
+    >
+        Reserved
+    </option>
+        </select>
+	</div>
+	<button
+		type="submit"
+		class="btn btn-primary"
+	>
+		Submit
+	</button>
+</form>
+<% if (locals.errors) { %>
+    <ul>
+        <% errors.forEach(error => { %>
+        <li><%=error.msg%></li>
+        <% }) %>
+    </ul>
+<% } %>

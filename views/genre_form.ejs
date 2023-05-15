@@ -1,0 +1,31 @@
+<h1><%= title %></h1>
+<form
+	method="POST"
+	action=""
+>
+	<div class="form-group">
+		<label for="name">Genre: </label>
+		<input
+			type="text"
+			placeholder="Fantasy, Poetry, etc..."
+			name="name"
+			id="name"
+			value="<%=(undefined=== locals.genre ? '' : genre.name)%>"
+			class="form-control"
+		/>
+	</div>
+	<button
+		type="submit"
+		class="btn btn-primary"
+	>
+		Submit
+	</button>
+</form>
+
+<% if (locals.errors) { %>
+<ul>
+	<% errors.forEach(error => { %>
+	<li><%- error.msg %></li>
+	<% }) %>
+</ul>
+<% } %>

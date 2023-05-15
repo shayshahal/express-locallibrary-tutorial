@@ -1,0 +1,84 @@
+<h1><%=title%></h1>
+<form
+	action=""
+	method="POST"
+>
+	<div class="form-group">
+		<label for="title"> title: </label>
+		<input
+			type="text"
+			placeholder="Name of book"
+			name="title"
+			value="<%=(undefined===locals.book?'':book.title)%>"
+			id="title"
+			class="form-control"
+		/>
+	</div>
+	<div class="form-group">
+		<label for="author"> Author: </label>
+		<%authors.sort(function(a, b) {let textA = a.family_name.toUpperCase();
+		let textB = b.family_name.toUpperCase(); return (textA < textB) ? -1 :
+		(textA > textB) ? 1 : 0;});%>
+		<select
+			name="author"
+			placeholder="Select author"
+			id="author"
+			class="form-control"
+		>
+			<% authors.forEach(author => { %> <% if(locals.book) { %> <option
+			value="<%=author._id%>"
+			<%=(author._id.toString()===book.author._id.toString()?'selected':'')%>
+			> <%=author.name%> <% } else { %>
+			<option value="<%=author._id%>"><%=author.name%></option>
+			<%}%> <% }) %>
+		</select>
+	</div>
+	<div class="form-group">
+		<label for="summary">Summary: </label>
+		<textarea
+			name="summary"
+			id="summary"
+			placeholder="Summary"
+			class="form-control"
+		>
+            <%=(undefined===locals.book?'':book.summary)%>    
+        </textarea>
+	</div>
+	<div class="form-group">
+		<label for="isbn">ISBN:</label>
+		<input
+			type="text"
+			name="isbn"
+			placeholder="ISBN13"
+			value="<%=(undefined===locals.book?'':book.isbn)%>"
+			id="isbn"
+			class="form-control"
+		/>
+	</div>
+	<div class="form-group">
+		<label for="genre">Genre: </label>
+		<div>
+			<%genres.forEach(genre => {%>
+			<div style="display: inline; padding-right: 10px">
+				<input type="checkbox" name="genre" id="<%=genre._id%>"
+				value="<%=genre._id%>" <%=genre.checked?'checked':''%>
+				class="checkbox-input" />
+				<label for="<%=genre._id%>"><%=genre.name%></label>
+			</div>
+			<%})%>
+		</div>
+	</div>
+	<button
+		type="submit"
+		class="btn btn-primary"
+	>
+		Submit
+	</button>
+</form>
+<% if (locals.errors) { %>
+<ul>
+	<% errors.forEach(error => { %>
+	<li><%=error.msg%></li>
+	<% }) %>
+</ul>
+<% } %>
