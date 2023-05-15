@@ -20,7 +20,7 @@ app.use(limiter);
 
 mongoose.set('strictQuery', false);
 const dev_db_url =
-	'mongodb+srv://shay:shahal@cluster0.acy88nl.mongodb.net/?retryWrites=true&w=majority';
+	'mongodb+srv://cooluser:coolpassword@cluster0.lz91hw2.mongodb.net/local_library?retryWrites=true&w=majority';
 const mongoDB = process.env.MONGODB_URI || dev_db_url;
 
 main().catch((err) => console.error(err));
